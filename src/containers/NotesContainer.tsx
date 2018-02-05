@@ -13,8 +13,8 @@ export function mapStateToProps(state:AppState){
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.INoteAction>) {
   return {
-    onSelectionChanged: (id:string) => dispatch(actions.selectNote(id)),
-    deleteNote:(id:string) => dispatch(actions.deleteNote(id)),
+    onSelectionChanged: (id:string) => {dispatch(actions.selectNote(id))},
+    deleteNote:(id:string) => {dispatch(actions.deleteNote(id))},
   };
 }
 

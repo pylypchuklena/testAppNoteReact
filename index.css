@@ -1,5 +1,5 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,strike,strong,tt,var,b,u,i,center,
-dl,dt,dd,ol,ul,li,fieldset,form,label,legend {
+dl,dt,dd,ol,ul,li,fieldset,form,legend {
     margin: 0;
     padding: 0;
     border: 0;
@@ -53,6 +53,13 @@ aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
     display: block;
     margin: 0
 }
+ul{
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
 .note{
     display: flex;
     flex-direction: column;
@@ -73,11 +80,19 @@ aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
     height: 100%;
     min-height: 355px;
 }
+.activeNoteSection>a{
+    height:100%;
+    color: #ccc;
+    text-decoration: none;
+}
 .note__header input{
     flex-grow: 1;
     border: none;
     border-bottom: 1px solid #cccccc;
     padding: 10px;
+}
+.note__header label{
+    margin:0;
 }
 .note__title{
     font-weight: 600;
@@ -122,6 +137,7 @@ aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
 .comment__author{
     min-width: 90px;
     min-height: 1.5em;
+    max-width: calc( 100% - 20px);
 }
 .comment__content{
     word-break: break-word;
@@ -135,15 +151,20 @@ aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
 .comment__list .comment:nth-child(odd){
     background-color: #f2f2f2f2;
 }
-.newComment__inputs .form-group label{
+.form__inputs .form-group label{
     min-width: 60px;
 }
-.newComment__header{
-    padding: 10px 10px 20px;
+.newNote__textarea{
+    min-height: 250px;
+    resize: none;
 }
-.newComment{
+.form__header{
+    padding: 10px 10px 20px;
+    background: rgba(230, 230, 230, 0.5);
+}
+.form{
     padding: 10px ;
-    background: rgb(163, 162, 162);
+    background: rgba(230, 230, 230, 0.5);
 }
 .flex-row{
     flex-direction: row;
@@ -176,6 +197,7 @@ aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
 .notes-list{
     height: 100%;
     border-bottom: 1px solid #cccccc;
+    border-left: 1px solid #cccccc;
 }
 .notes-list__item{
     list-style-type: none;
@@ -201,6 +223,7 @@ aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
 }
 .notes-list__item{
     transition: ease-out 0.3s;
+    border-bottom: 1px dotted #ccc;
 }
 .notes-list__item:hover, .notes-list__item.active:hover{
     background-color: rgba(184, 207, 218, 0.44);
@@ -255,4 +278,30 @@ aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {
 .inValid, .inValid:focus{
     border-color: red;
     box-shadow:red;
+}
+.wrapButton{
+    padding: 15px;
+}
+.flex-center{
+    align-items: center;
+    display: flex;
+}
+a{color: #333}
+.option__title{
+    padding: 15px;
+}
+.option__input label{
+    margin: 0px;
+    padding-left: 10px;
+}
+.option__input{
+    padding-bottom: 10px;
+}
+.fa-pencil:before{
+    font-size: 28px;
+}
+.nav-items--left .nav-item:last-child{
+    border-left: 1px solid #ccc;
+    margin-left: 15px;
+    padding-left: 10px;
 }

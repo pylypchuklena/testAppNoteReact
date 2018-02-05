@@ -3,9 +3,6 @@ import { AppState, SourceTypes, NoteModel, NoteComment } from '../types/NoteMode
 import * as constants from '../constants';
 import { combineReducers } from 'redux';
 
-
-
-
 function addNote(state:NoteModel[], item:NoteModel):NoteModel[]{
     var unselectedNoteList = state.map(item=>{return {...item, isSelected:false} as NoteModel;})
     return [...unselectedNoteList, item];
@@ -43,31 +40,6 @@ function addNewComment(state:NoteComment[], item:NoteComment):NoteComment[]{
     return[...state, item]
 }
 
-function initialState():AppState {
-    return {
-        notes:new Array<NoteModel>(),
-        comments:new Array<NoteComment>(),
-        storageType:SourceTypes.LOCALSTORAGE
-    };
-}
-
-// export function appReduser(state: AppState = initialState(), action: INoteAction): AppState {
-//     console.log(action);
-//     switch (action.type) {
-//         case constants.CHANGE_SOURCE:
-//             return {...state, storageType: sourceReduser(state.storageType, action)};
-//         case constants.ADD_COMMENT:
-//             return {...state, comments: commentReduser(state.comments, action)};
-//         case constants.ADD_NOTE:
-//         case constants.DELETE_NOTE:
-//         case constants.CHANGE_SELECTED_NOTE:          
-//         case constants.UPDATE_NOTE:
-//             return{...state, notes: noteReduser(state.notes, action)};
-//         default:
-//             return state;
-//     }
-    
-// }
 export const appReduser = combineReducers<AppState>({
     storageType : sourceReduser,
     comments: commentReduser,

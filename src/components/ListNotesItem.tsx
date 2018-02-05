@@ -1,29 +1,36 @@
 import * as React from "react";
-import {NoteModel, NoteComment} from '../types/NoteModel';
+import { NoteModel, NoteComment } from '../types/NoteModel';
 
-interface itemProps{
-    item:NoteModel;
-    onSelectionChanged:(id:string)=>void;
-    deleteNote:(id:string)=>void;
+interface itemProps {
+    item: NoteModel;
+    onSelectionChanged: (id: string) => void;
+    deleteNote: (id: string) => void;
 }
 
-export function ListNotesItem({item,onSelectionChanged,deleteNote}:itemProps){
-    return(
-        <li className={"notes-list__item flex-column " + (item.isSelected ? ' active' : '')}
-         onClick={()=>{onSelectionChanged(item.id)}}>
-            <div className="notes-list__item__delete">
-                <span className="fa fa-trash-o" 
-                onClick={(e)=>{deleteNote(item.id); e.preventDefault();e.stopPropagation();}}></span>
-            </div>
-            <div className="notes-list__item__header">
-                <span className="comment__author">{item.name}</span>
-                
-            </div>
-            <div className="notes-list__item__footer flex-row">
-                <span className="comment__date comment__date--list">{item.date}</span>
-                <span className="comment__content comment__content--list ">{item.content}</span>
-            </div>
-        </li>    
-    )
+export class ListNotesItem extends React.Component<itemProps>{
+    constructor(props:itemProps){
+        super(props);
+    }
+    render() {
+        return (
+            <li className={"notes-list__item flex-column " + (this.props.item.isSelected ? ' active' : '')}
+                onClick={() => { this.props.onSelectionChanged(this.props.item.id) }}>
+                <div className="notes-list__item__delete"
+                    onClick={(e) => { this.props.deleteNote(this.props.item.id); e.preventDefault(); e.stopPropagation(); }}
+                >
+                    <span className="fa fa-trash-o"
+                        ></span>
+                </div>
+                <div className="notes-list__item__header">
+                    <span className="comment__author">{this.props.item.name}</span>
+
+                </div>
+                <div className="notes-list__item__footer flex-row">
+                    <span className="comment__date comment__date--list">{this.props.item.date}</span>
+                    <span className="comment__content comment__content--list ">{this.props.item.content}</span>
+                </div>
+            </li>
+        )
+    }
 }
 export default ListNotesItem;

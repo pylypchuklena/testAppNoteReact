@@ -24,7 +24,7 @@ export function mapStateToProps(state:AppState){
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.INoteAction>) {
   return {
-    addComment:(comment:NoteComment) =>  dispatch(actions.addComment(comment)) 
+    addComment:(comment:NoteComment) => { dispatch(actions.addComment(comment)) }
   };
 }
 

@@ -1,37 +1,57 @@
 import * as React from 'react'
 import { NoteModel } from '../types/NoteModel';
 
-export interface itemProps{
-    selectedItem:NoteModel;
-    updateNote: (item:NoteModel)=>void;
+export interface itemProps {
+    selectedItem: NoteModel;
+    updateNote: (item: NoteModel) => void;
 }
 
-export function NoteContent({selectedItem,updateNote}:itemProps){
-    function handleChangeTitle(e:any){
-        updateNote({...selectedItem,name:e});
+export class NoteContent extends React.Component<itemProps>{
+
+    constructor(props: itemProps) {
+        super(props);
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    function handleChangeContent(e:any){
-        updateNote({...selectedItem,content:e});
+
+    handleChangeTitle(e: any) {
+        this.props.updateNote({ ...this.props.selectedItem, name: e });
     }
-    function handleSubmit(e:any){
+
+    handleChangeContent(e: any) {
+        this.props.updateNote({ ...this.props.selectedItem, content: e });
+    }
+
+    handleSubmit(e: any) {
         e.preventDeault();
     }
-    if(selectedItem){
-        
-    return(
-        <form onSubmit={(e)=>handleSubmit(e.preventDefault())}>
-            <div className="note__header">
-                <label className="flex-row">
-                    <input type="text" placeholder="Title" value={selectedItem.name} onChange={(e)=>handleChangeTitle(e.target.value)}/>
-                </label>
-            </div>
-            <div className="note__content">
-                <textarea  value={selectedItem.content} onChange={(e)=>handleChangeContent(e.target.value)}></textarea>
-            </div>
-        </form>
-    )}
-    else return (<div></div>)
+
+    render() {
+        if (this.props.selectedItem) {
+
+            return (
+                <form onSubmit={(e) => this.handleSubmit(e.preventDefault())}>
+                    <div className="note__header">
+                        <label className="flex-row">
+                            <input type="text"
+                                placeholder="Title"
+                                value={this.props.selectedItem.name}
+                                onChange={(e) => this.handleChangeTitle(e.target.value)} />
+                        </label>
+                    </div>
+                    <div className="note__content">
+                        <textarea
+                            value={this.props.selectedItem.content}
+                            onChange={(e) => this.handleChangeContent(e.target.value)}>
+                        </textarea>
+                    </div>
+                </form>
+            )
+        }
+        else return (<div></div>)
+    }
 
 }
- 
+
 export default NoteContent;
