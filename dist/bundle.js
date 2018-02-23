@@ -45263,24 +45263,15 @@ var NoteNewComment = /** @class */ (function (_super) {
     __extends(NoteNewComment, _super);
     function NoteNewComment(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { authorValid: false, valueAuthor: '', valueComment: '' };
+        _this.state = { valueAuthor: '', valueComment: '' };
         _this.handleAuthor = _this.handleAuthor.bind(_this);
         _this.handleContent = _this.handleContent.bind(_this);
         _this.clearTextInput = _this.clearTextInput.bind(_this);
         _this.submitForm = _this.submitForm.bind(_this);
         return _this;
     }
-    NoteNewComment.prototype.validateAuthor = function (str) {
-        var arr = str.split(" ");
-        if (arr.length == 2) {
-            var first = arr[0].charAt(0) == arr[0].charAt(0).toLocaleUpperCase();
-            var second = arr[1].charAt(0) == arr[1].charAt(0).toLocaleUpperCase() && arr[1].length > 0;
-            return first && second;
-        }
-    };
     NoteNewComment.prototype.handleAuthor = function (e) {
         this.setState({
-            authorValid: this.validateAuthor(e.currentTarget.value),
             valueAuthor: e.currentTarget.value
         });
     };
@@ -45290,17 +45281,15 @@ var NoteNewComment = /** @class */ (function (_super) {
         });
     };
     NoteNewComment.prototype.clearTextInput = function () {
-        this.setState(__assign({}, this.state, { valueComment: '', valueAuthor: '', authorValid: false }));
+        this.setState(__assign({}, this.state, { valueComment: '', valueAuthor: '' }));
     };
     NoteNewComment.prototype.submitForm = function (e) {
         e.preventDefault();
-        if (this.state.authorValid) {
-            var newComment = new NoteModel_1.NoteComment();
-            newComment.author = this.state.valueAuthor;
-            newComment.content = this.state.valueComment;
-            this.props.onAddComment(newComment);
-            this.clearTextInput();
-        }
+        var newComment = new NoteModel_1.NoteComment();
+        newComment.author = this.state.valueAuthor;
+        newComment.content = this.state.valueComment;
+        this.props.onAddComment(newComment);
+        this.clearTextInput();
     };
     NoteNewComment.prototype.render = function () {
         return (React.createElement("div", { className: "newComment newComment-wrap" },
@@ -45308,13 +45297,10 @@ var NoteNewComment = /** @class */ (function (_super) {
                 React.createElement("div", { className: "form__inputs" },
                     React.createElement("div", { className: "form-group" },
                         React.createElement("label", { htmlFor: "newCommentName" }, "Author:"),
-                        React.createElement("input", { id: "newCommentName", onChange: this.handleAuthor, value: this.state.valueAuthor, type: "text", className: "form-control form__input " +
-                                (this.state.authorValid ? 'isValid' : 'inValid') }),
-                        React.createElement("small", { className: "form-text text-muted " + (this.state.authorValid ? "hide" : "Show") }, "* Name and Surname ")),
+                        React.createElement("input", { id: "newCommentName", required: true, onChange: this.handleAuthor, value: this.state.valueAuthor, type: "text", className: "form-control form__input " })),
                     React.createElement("div", { className: "form-group" },
                         React.createElement("label", { htmlFor: "newCommentContent" }, "Content:"),
-                        React.createElement("textarea", { required: true, id: "newCommentContent", value: this.state.valueComment, onChange: this.handleContent, className: "form-control form__input " +
-                                (this.state.authorValid ? 'isValid' : 'inValid') }))),
+                        React.createElement("textarea", { required: true, id: "newCommentContent", value: this.state.valueComment, onChange: this.handleContent, className: "form-control form__input " }))),
                 React.createElement("button", { type: "submit", className: "btn btn-md btn-secondary mr-sm-2" }, "Add comment"))));
     };
     return NoteNewComment;

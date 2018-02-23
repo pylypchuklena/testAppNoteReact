@@ -6,7 +6,6 @@ interface Props {
 }
 
 interface State {
-    authorValid: boolean,
     valueAuthor: string,
     valueComment: string
 }
@@ -15,26 +14,16 @@ export class NoteNewComment extends React.Component<Props, State>{
 
     constructor(props: Props) {
         super(props);
-        this.state = { authorValid: false, valueAuthor: '', valueComment: '' };
+        this.state = { valueAuthor: '', valueComment: '' };
         this.handleAuthor = this.handleAuthor.bind(this);
         this.handleContent = this.handleContent.bind(this);
         this.clearTextInput = this.clearTextInput.bind(this);
         this.submitForm = this.submitForm.bind(this);
     }
 
-    validateAuthor(str: string): boolean {
-        var arr = str.split(" ");
-        if (arr.length == 2) {
-            var first = arr[0].charAt(0) == arr[0].charAt(0).toLocaleUpperCase();
-            var second = arr[1].charAt(0) == arr[1].charAt(0).toLocaleUpperCase() && arr[1].length > 0;
-            return first && second;
-        }
-    }
-
     handleAuthor(e: any) {
         this.setState(
             {
-                authorValid: this.validateAuthor(e.currentTarget.value),
                 valueAuthor: e.currentTarget.value
             });
     }
@@ -44,17 +33,15 @@ export class NoteNewComment extends React.Component<Props, State>{
         });
     }
     clearTextInput() {
-        this.setState({ ...this.state, valueComment: '', valueAuthor: '', authorValid:false });
+        this.setState({ ...this.state, valueComment: '', valueAuthor: ''});
     }
     submitForm(e: any) {
         e.preventDefault();
-        if (this.state.authorValid) {
             var newComment = new NoteComment();
             newComment.author = this.state.valueAuthor;
             newComment.content = this.state.valueComment;
             this.props.onAddComment(newComment);
             this.clearTextInput()
-        }
     }
 
     render() {
@@ -66,20 +53,18 @@ export class NoteNewComment extends React.Component<Props, State>{
                         <div className="form-group">
                             <label htmlFor="newCommentName"  >Author:</label>
                             <input id="newCommentName"
+                                required
                                 onChange={this.handleAuthor}
                                 value={this.state.valueAuthor}
                                 type="text"
-                                className={"form-control form__input " +
-                                    (this.state.authorValid ? 'isValid' : 'inValid')} />
-                                    <small className={"form-text text-muted " + (this.state.authorValid ? "hide" :"Show")}>* Name and Surname </small>
+                                className="form-control form__input " />
                         </div>
                         <div className="form-group">
                             <label htmlFor="newCommentContent" >Content:</label>
                             <textarea required id="newCommentContent"
                                 value={this.state.valueComment}
                                 onChange={this.handleContent}
-                                className={"form-control form__input " +
-                                (this.state.authorValid ? 'isValid' : 'inValid')} ></textarea>
+                                className="form-control form__input " ></textarea>
                         </div>
 
                     </div>
